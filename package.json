@@ -1,8 +1,8 @@
 {
-  "name": "template",
+  "name": "my-university",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/IIC2513-2019-1/template.git",
+  "repository": "https://github.com/IIC2513-2019-1/my-university.git",
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
