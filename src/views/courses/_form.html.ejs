@@ -13,19 +13,19 @@
     <% if (!course.isNewRecord) { %>
       <input type="hidden" name="_method" value="patch" />
     <% } %>
-    <div>
+    <div class="field">
       <label for="code">Code</label>
       <input type="text" name="code" value="<%= course.code %>" />
     </div>
-    <div>
+    <div class="field">
       <label for="name">Name</label>
       <input type="text" name="name" value="<%= course.name %>" />
     </div>
-    <div>
+    <div class="field">
       <label for="description">Description</label>
       <textarea type="text" name="description"><%= course.description %></textarea>
     </div>
-    <div>
+    <div class="field">
       <% if (course.isNewRecord) { %>
         <input type="submit" name="create" value="Create" />
       <% } else { %>
