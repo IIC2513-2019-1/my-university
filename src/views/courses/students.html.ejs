@@ -1,0 +1,25 @@
+<h2>Students List</h2>
+<table id="generic-list">
+  <thead>
+      <tr>
+        <th>N</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Registered At</th>
+      </tr>
+  </thead>
+  <tbody>
+    <% students.forEach((student, index) => { %>
+      <tr>
+        <td><%- (index + 1) %></td>
+        <td><%- student.name %></td>
+        <td><%- student.email %></td>
+        <td><%- student.enrollment.registeredAt %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<ul>
+  <li><a href="<%= coursesListPath %>">Back to Courses List</a></li>
+</ul>

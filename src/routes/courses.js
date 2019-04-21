@@ -14,6 +14,8 @@ router.get('courses.list', '/', async (ctx) => {
     newCoursePath: ctx.router.url('courses.new'),
     editCoursePath: course => ctx.router.url('courses.edit', { id: course.id }),
     deleteCoursePath: course => ctx.router.url('courses.delete', { id: course.id }),
+    studentsCoursePath: course => ctx.router.url('courses.students', { id: course.id }),
+    studentsPath: ctx.router.url('students.list'),
   });
 });
 
@@ -66,6 +68,13 @@ router.del('courses.delete', '/:id', loadCourse, async (ctx) => {
   const { course } = ctx.state;
   await course.destroy();
   ctx.redirect(ctx.router.url('courses.list'));
+});
+
+router.get('courses.students', '/:id/students', loadCourse, async (ctx) => {
+  await ctx.render('courses/students', {
+    students: await ctx.state.course.getStudents(),
+    coursesListPath: ctx.router.url('courses.list'),
+  });
 });
 
 module.exports = router;

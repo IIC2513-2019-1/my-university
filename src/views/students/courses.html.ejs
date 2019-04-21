@@ -1,0 +1,29 @@
+<h2><%= studentName %>'s Courses</h2>
+<% if (!coursesList.length) { %>
+  <p>No results</p>
+<% } else { %>
+
+  <table id="generic-list">
+    <thead>
+        <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Registered At</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% coursesList.forEach((course) => { %>
+        <tr>
+          <td><%- course.code %></td>
+          <td><%- course.name %></td>
+          <td><%- course.enrollment.registeredAt %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+<% } %>
+
+<ul>
+  <li><a href="<%= studentsListPath %>">Back to Students List</a></li>
+</ul>
