@@ -3,13 +3,14 @@
   <p>No results</p>
 <% } else { %>
 
-  <table id="courses-list">
+  <table id="generic-list">
     <thead>
         <tr>
           <th>Code</th>
           <th>Name</th>
           <th>Description</th>
           <% if (currentUser) { %>
+            <th>Students</th>
             <th colspan="2">Actions</th>
           <% } %>
         </tr>
@@ -21,6 +22,7 @@
           <td><%- course.name %></td>
           <td><%- course.description %></td>
           <% if (currentUser) { %>
+            <td><a href="<%- studentsCoursePath(course) %>">View List</a></td>
             <td><a href="<%- editCoursePath(course) %>">Edit</a></td>
             <td>
               <form action="<%- deleteCoursePath(course) %>" method="POST">
@@ -37,5 +39,8 @@
 <% } %>
 
 <% if (currentUser) { %>
-  <a href="<%- newCoursePath %>">New course</a>
+  <ul>
+    <li><a href="<%- newCoursePath %>">New course</a></li>
+    <li><a href="<%- studentsPath %>">Students list</a></li>
+  </ul>
 <% } %>
