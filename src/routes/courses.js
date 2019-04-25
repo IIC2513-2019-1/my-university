@@ -1,4 +1,7 @@
 const KoaRouter = require('koa-router');
+const parse = require('csv-parse');
+const fs = require('fs');
+const fileStorage = require('../services/file-storage');
 
 const router = new KoaRouter();
 
@@ -16,6 +19,7 @@ router.get('courses.list', '/', async (ctx) => {
     deleteCoursePath: course => ctx.router.url('courses.delete', { id: course.id }),
     studentsCoursePath: course => ctx.router.url('courses.students', { id: course.id }),
     studentsPath: ctx.router.url('students.list'),
+    uploadCoursesPath: ctx.router.url('courses.upload'),
   });
 });
 
@@ -75,6 +79,32 @@ router.get('courses.students', '/:id/students', loadCourse, async (ctx) => {
     students: await ctx.state.course.getStudents(),
     coursesListPath: ctx.router.url('courses.list'),
   });
+});
+
+router.get('courses.upload', '/upload', async (ctx) => {
+  await ctx.render('courses/upload', {
+    submitCoursesPath: ctx.router.url('courses.load'),
+  });
+});
+
+router.post('courses.load', '/upload', async (ctx) => {
+  const { list } = ctx.request.files;
+
+  fs.readFile(list.path, (err, fileData) => {
+    parse(fileData, { columns: true, delimiter: ';' }, (parseErr, rows) => {
+      rows.forEach((row) => {
+        const course = ctx.orm.course.build(row);
+        course.save({ fields: ['code', 'name', 'description'] });
+      });
+    });
+  });
+
+  if (Array.isArray(list)) {
+    list.forEach(f => fileStorage.upload(f));
+  } else {
+    await fileStorage.upload(ctx.request.files.list);
+  }
+  ctx.redirect(ctx.router.url('courses.list'));
 });
 
 module.exports = router;
