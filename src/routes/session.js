@@ -2,6 +2,9 @@ const KoaRouter = require('koa-router');
 
 const router = new KoaRouter();
 
+// disabled for testing purposes
+// const sendLoginAlertEmail = require('../mailers/login-alert');
+
 router.get('session.new', '/new', ctx => ctx.render('session/new', {
   createSessionPath: ctx.router.url('session.create'),
   notice: ctx.flashMessage.notice,
@@ -12,6 +15,7 @@ router.put('session.create', '/', async (ctx) => {
   const user = await ctx.orm.user.find({ where: { email } });
   const isPasswordCorrect = user && await user.checkPassword(password);
   if (isPasswordCorrect) {
+    // await sendLoginAlertEmail(ctx, { user });
     ctx.session.userId = user.id;
     return ctx.redirect(ctx.router.url('courses.list'));
   }
