@@ -15,7 +15,7 @@ router.put('session.create', '/', async (ctx) => {
   const user = await ctx.orm.user.find({ where: { email } });
   const isPasswordCorrect = user && await user.checkPassword(password);
   if (isPasswordCorrect) {
-    // sendLoginAlertEmail(ctx, { user });
+    // await sendLoginAlertEmail(ctx, { user });
     ctx.session.userId = user.id;
     return ctx.redirect(ctx.router.url('courses.list'));
   }
