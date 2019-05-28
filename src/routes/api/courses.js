@@ -16,7 +16,7 @@ router.get('api.courses.list', '/', async (ctx) => {
 });
 
 router.get('api.course.show', '/:id', async (ctx) => {
-  const course = await await ctx.orm.course.findById(ctx.params.id);
+  const course = await ctx.orm.course.findById(ctx.params.id);
   ctx.body = ctx.jsonSerializer('course', {
     attributes: ['code', 'name', 'description'],
     topLevelLinks: {
