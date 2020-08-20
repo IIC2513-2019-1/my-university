@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "bcrypt": "^3.0.5",
+    "bcrypt": "^5.0.0",
     "csv-parse": "^4.4.1",
     "faker": "^4.1.0",
     "jsonapi-serializer": "^3.6.4",
